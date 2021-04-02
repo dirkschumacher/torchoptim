@@ -7,6 +7,7 @@
 
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![R-CMD-check](https://github.com/dirkschumacher/torchoptim/workflows/R-CMD-check/badge.svg)](https://github.com/dirkschumacher/torchoptim/actions)
 <!-- badges: end -->
 
 The goal of `torchoptim` is to experiment with building a `stats::optim`
