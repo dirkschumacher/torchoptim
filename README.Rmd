@@ -1,0 +1,69 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# torchoptim
+
+<!-- badges: start -->
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+<!-- badges: end -->
+
+The goal of `torchoptim` is to experiment with building a `stats::optim` like function powered by the `torch` optimizers.
+
+Experimental, just for fun and does not support constraint optimization.
+If this is a good idea remains to be seen :)
+
+## Installation
+
+``` r
+remotes::install_github("dirkschumacher/torchoptim")
+```
+
+## Example
+
+As an example we optimize the Rosenbrock function and compare it to the solution
+from `stats::optim`.
+
+```{r example}
+library(torch)
+library(torchoptim)
+
+# from the R docs of stats::optim
+fr <- function(x) {   ## Rosenbrock Banana function
+    x1 <- x[1]
+    x2 <- x[2]
+    100 * (x2 - x1 * x1)^2 + (1 - x1)^2
+}
+grr <- function(x) { ## Gradient of 'fr'
+    x1 <- x[1]
+    x2 <- x[2]
+    c(-400 * x1 * (x2 - x1 * x1) - 2 * (1 - x1),
+       200 *      (x2 - x1 * x1))
+}
+# first with stats::optim
+stats::optim(c(-1.2,1), fr, grr, method = "L-BFGS-B")
+```
+
+And then with torch:
+
+```{r}
+optim_torch(
+ torch_tensor(c(-1.2, 1), requires_grad = TRUE),
+ fr,
+ method = "lbfgs",
+ control = list(maxiter = 10)
+)
+```
+
+Why is this cool you ask? We can optimize a function using lbfgs, but without having to manually figure out it's gradient and we can also optimize the function on cuda.

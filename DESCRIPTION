@@ -1,0 +1,19 @@
+Package: torchoptim
+Title: A bit like 'stats::optim', but with torch
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Dirk",
+           family = "Schumacher",
+           role = c("aut", "cre"),
+           email = "mail@dirk-schumacher.net")
+Description: A version of optim using torch. Work in progress and experimental.
+License: GPL (>= 3) + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+Imports: 
+    torch
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
